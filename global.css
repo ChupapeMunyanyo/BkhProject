@@ -1,0 +1,255 @@
+/* global.css */
+:root {
+    --primary: #4361ee;
+    --secondary: #3a0ca3;
+    --success: #4cc9f0;
+    --danger: #f72585;
+    --warning: #f8961e;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #6c757d;
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  
+  /* Base styles */
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    margin: 0;
+    color: var(--dark);
+  }
+  
+  .App {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  /* Channel status container */
+  .channel-status {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Header styles */
+  .channel-status h2 {
+    color: var(--secondary);
+    margin-top: 0;
+    font-size: 1.8rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .channel-status h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--success);
+    border-radius: 3px;
+    animation: expandLine 0.8s ease-out;
+  }
+  
+  @keyframes expandLine {
+    from { width: 0; opacity: 0; }
+    to { width: 50px; opacity: 1; }
+  }
+  
+  /* Current channel display */
+  .current-channel {
+    background: rgba(67, 97, 238, 0.05);
+    border-left: 4px solid var(--primary);
+    padding: 1rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+    transition: var(--transition);
+  }
+  
+  .current-channel:hover {
+    transform: translateX(4px);
+  }
+  
+  .current-channel h3 {
+    margin: 0 0 0.5rem;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+  }
+  
+  .current-channel h3::before {
+    content: '●';
+    color: var(--success);
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0.6; transform: scale(1); }
+  }
+  
+  /* Channel list styles */
+  .channel-list {
+    margin-top: 2rem;
+  }
+  
+  .channel-list h3 {
+    color: var(--secondary);
+    margin-bottom: 1rem;
+  }
+  
+  .channel-list ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  
+  .channel-list li {
+    position: relative;
+  }
+  
+  /* Button styles */
+  .channel-list button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: white;
+    color: var(--dark);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .channel-list button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--primary);
+    transition: var(--transition);
+  }
+  
+  .channel-list button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .channel-list button:hover::before {
+    width: 6px;
+  }
+  
+  /* Status indicators */
+  .channel-list button[disabled] {
+    color: var(--gray);
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, 0.03);
+  }
+  
+  .channel-list button[disabled]::before {
+    background: var(--gray);
+  }
+  
+  /* Status-specific styles */
+  .channel-list .idle {
+    border-left: 3px solid var(--primary);
+  }
+  
+  .channel-list .connected {
+    border-left: 3px solid var(--success);
+  }
+  
+  .channel-list .unavailable {
+    border-left: 3px solid var(--danger);
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+  }
+  
+  /* Error messages */
+  .channel-list span {
+    color: var(--danger);
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 0.3rem;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  /* Loading indicator */
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  .channel-status p {
+    display: flex;
+    align-items: center;
+    color: var(--gray);
+  }
+  
+  .channel-status p::before {
+    content: '';
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Toast notifications customization */
+  .Toastify__toast {
+    border-radius: 8px !important;
+    font-family: inherit !important;
+  }
+  
+  .Toastify__toast--error {
+    background: var(--danger) !important;
+  }
+  
+  .Toastify__toast--success {
+    background: var(--success) !important;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .App {
+      padding: 1rem;
+    }
+    
+    .channel-list ul {
+      grid-template-columns: 1fr;
+    }
+  }
